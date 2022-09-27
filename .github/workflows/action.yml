@@ -8,4 +8,6 @@ jobs:
         uses: actions/checkout@v2
       - name: docker build
         run: docker build -t ekaterinavvv/skypro_keitoekka_app:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+      - name: docker push
+        run: docker push -t ekaterinavvv/skypro_keitoekka_app:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
