@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: clone code
-        uses: actions/checout@v2
+        uses: actions/checkout@v2
       - name: render configs
         run: |
           mkdir lesson_25
