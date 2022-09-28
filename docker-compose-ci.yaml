@@ -15,13 +15,12 @@ services:
        condition: service_completed_successfully
 
   migrations:
-
     image: ekaterinavvv/skypro_keitoekka_app:$GITHUB_REF_NAME-$GITHUB_RUN_ID
-    volumes:
-      - ./docker_config.py:/code/default_config.py
     depends_on:
       pg:
         condition: service_healthy
+    volumes:
+      - ./docker_config.py:/code/default_config.py
     command: flask db upgrade
 
 
@@ -31,10 +30,10 @@ services:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASSWORD
       POSTGRES_DB: $DB_NAME
-    volumes:
-      - ./pg_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
