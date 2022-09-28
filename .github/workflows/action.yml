@@ -12,4 +12,25 @@ jobs:
         run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: docker push
         run: docker push ekaterinavvv/skypro_keitoekka_app:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+  lesson_25:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone code
+        uses: actions/checout@v2
+      - name: render configs
+        run: |
+          mkdir lesson_25
+          cat docker-compose-ci.yaml | envsubst > lesson_25/docker-compose.yaml
+          cat docker_ci_config.py | envsubst > lesson_25/docker_config.py
+      - name: copy files to server
+        uses: actions/checkout@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "lesson_25/docker-compose.yaml,lesson_25/docker_config.py"
+          target: "flask_app_ci"
+          strip_components: 1
+
+          
 
