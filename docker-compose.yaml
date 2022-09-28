@@ -11,7 +11,7 @@ services:
         condition: service_healthy
       migrations:
         condition: service_completed_successfully
-      volumes:
+    volumes:
         - ./docker_config.py:/code/default_config.py
   migrations:
     build:
