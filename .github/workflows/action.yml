@@ -32,7 +32,7 @@ jobs:
           source: "lesson_25/docker-compose.yaml,lesson_25/docker_config.py"
           target: "flask_app_ci"
           strip_components: 1
-      - name: run lesson_25
+      - name: lesson_25 app
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
